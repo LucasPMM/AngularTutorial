@@ -224,8 +224,8 @@ export class ServersComponent implements OnInit {
 Exemplo de aplicação simples:
 ```html
 <div 
-  *ngFor="let logItem of log; let i = index"  // a posição de cada elemento
-  [ngStyle]="{backgroudColor: i >= 4 ? 'blue' : 'transparent'}">{{ logItem }} // se a posição no vetor for >= 4 escolhe azul
-  [ngClass]="{'white-text': i >= 4}"  // se a posição for >= 4 a classe white-text, definida previamente, é adicionada
+  *ngFor="let logItem of log; let i = index"  <!-- a posição de cada elemento -->
+  [ngStyle]="{backgroudColor: i >= 4 ? 'blue' : 'transparent'}">{{ logItem }} <!-- se a posição no vetor for >= 4 escolhe azul -->
+  [ngClass]="{'white-text': i >= 4}"  <!-- se a posição for >= 4 a classe white-text, definida previamente, é adicionada -->
 </div>
 ```
