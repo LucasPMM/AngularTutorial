@@ -19,7 +19,7 @@ import { FormsModule } from '@angular/forms';
 imports {
 	FormsModule
 },
-..
+...
 ```
 No arquivo app.component.html:
 ```html
@@ -138,6 +138,7 @@ Uma maneira mais faciel é usar o [(ngModel)].
 ```html
 <input type="text" class="form-control" [(ngModel)] = serverName>
 <p>{{ serverName }}</p>
-
 <button class="btn btn-primary" [disabled] = "serverName === ''" (click)="serverName = ''">Add Server</button>
 ```
+	
+Após clicar no botão, o input é limpo.
