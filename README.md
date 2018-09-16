@@ -142,3 +142,90 @@ Uma maneira mais faciel é usar o [(ngModel)].
 ```
 	
 Após clicar no botão, o input é limpo.
+
+# Directives:
+
+### ngIf
+Para mostrar ou não conteúdos dentro de uma tad html.
+```html
+<p *ngIf="true_false_conditional">Texto que só aparece quando é true</p>
+```
+Também é possivel criar uma espécie de else:
+```html
+<p *ngIf="serverCreated; else casoContrario">Server was created, server name is {{ serverName }}</p>
+<ng-template #casoContrario>
+    <p>Texto que aparece caso contrario.</p>
+</ng-template>
+```
+Exemplo de aplicação: toggle simples.
+```html
+<button class="btn btn-primary" (click)="variavel = !variavel">Add Server</button>
+<p *ngIf="variavel">Senha secreta = luna</p>
+```
+Fica alternando entre true e false, fazendo com que o paragrafo desapareça se estiver na tela, ou apareça caso contrário.
+
+
+### ngStyle
+Podemos usar o ngStyle para mudar o css de um elemento dinamicamente.
+```html
+<p [ngStyle]="{'background-color': getColor()}">Some text</p>
+```
+No arquivo typescript:
+```typescript
+getColor() {
+    return this.serverStatus === 'online' ? 'green' : 'red';
+}
+```
+
+### ngClass
+Adiciona uma classe css se uma determinada condição for satisfeita.
+```html
+<p [ngClass]="{'online': serverStatus === 'online'}">Server with ID {{ serverId }} is {{ getServerStatus() }}</p>
+```
+Adicionará a classe .online apenas se o server estiver online (condição de true or false). No arquivo typescript:
+```typescript
+@Component({
+    selector: 'app-server',
+    templateUrl: './server.component.html',
+    styles: [`
+        .online {
+            color: white;
+        }
+    `]
+})
+```
+
+### ngFor:
+Para adicionar uma lista de elementos no DOM utilizamos o ngFor.
+```html
+<app-server *ngFor="let nome_de_variavel_qualquer of array_definido_app.component.ts"></app-server>
+```
+Ele tem um funcionamento semelhante ao forEach. Exemplo de aplicação:
+```html
+<app-server *ngFor="let server of servers"></app-server>
+```
+```typescript
+import { Component, OnInit } from '@angular/core';
+
+@Component({
+  selector: 'app-servers',
+  templateUrl: './servers.component.html',
+  styleUrls: ['./servers.component.css']
+})
+export class ServersComponent implements OnInit {
+  serverName = '';
+  servers = ['Testserver', 'Testserver 2'];
+  onCreateServer() {
+    this.serverCreated = true	// Obtido atraves do ngModel
+    this.servers.push(this.serverName); // Adicionando mais um elemento no array de listas
+  }
+}
+```
+Exemplo de aplicação simples:
+```html
+<div 
+  *ngFor="let logItem of log; let i = index"  // a posição de cada elemento
+  [ngStyle]="{backgroudColor: i >= 4 ? 'blue' : 'transparent'}">{{ logItem }} // se a posição no vetor for >= 4 escolhe azul
+  [ngClass]="{'white-text': i >= 4}"  // se a posição for >= 4 a classe white-text, definida previamente, é adicionada
+</div>
+```
